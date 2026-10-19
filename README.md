@@ -75,9 +75,25 @@ flowchart TD
 InjectSecRAG/
 ├── rag-attack-ablation-study.ipynb   # Complete pipeline notebook & ablation experiments
 ├── eval_attack.py                    # Multi-threaded LLM-as-a-judge attack evaluation via LM Studio
+├── questions.csv                     # Benchmark test suite (336 curated cybersecurity questions)
+├── hackbooks.zip                     # Technical cybersecurity corpus (tracked via Git LFS)
+├── .gitattributes                    # Git LFS tracking configuration
 ├── .gitignore                        # Git exclusion rules for large models & caches
 └── README.md                         # Project documentation and setup guide
 ```
+
+---
+
+## 📊 Datasets & Benchmark Suite
+
+- **`questions.csv`**: Contains 336 evaluation questions across network defense, exploit mechanics, cryptography, malware analysis, and security auditing used to query the RAG system and measure knowledge corruption.
+- **`hackbooks` Corpus (`hackbooks.zip`)**: The underlying document corpus containing comprehensive cybersecurity reference manuals, books, and technical documentation indexed into the ChromaDB vector database (`UserDocuments` collection).
+  > [!NOTE]
+  > `hackbooks.zip` is managed via **Git LFS**. To download the full 860 MB archive after cloning:
+  > ```bash
+  > git lfs pull
+  > unzip hackbooks.zip
+  > ```
 
 ---
 

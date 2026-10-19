@@ -17,10 +17,11 @@ ENV/
 # Vector database & large data artifacts
 chroma_db/
 *.zip
+!hackbooks.zip
 *.tar.gz
 *.sqlite3
 *.csv
-!questions.csv.example
+!questions.csv
 
 # OS metadata
 .DS_Store
