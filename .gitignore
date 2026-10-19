@@ -16,7 +16,8 @@ ENV/
 
 # Vector database & large data artifacts
 chroma_db/
-chroma_db.zip
+*.zip
+*.tar.gz
 *.sqlite3
 *.csv
 !questions.csv.example

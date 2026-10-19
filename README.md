@@ -1,9 +1,10 @@
 # InjectSecRAG: Adversarial Poisoning & Keyword Ablation in RAG Systems
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![LangChain](https://img.shields.io/badge/LangChain-Enabled-green.svg)](https://github.com/langchain-ai/langchain)
 [![VectorDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-orange.svg)](https://www.trychroma.com/)
-[![Ollama](https://img.shields.io/badge/Ollama-Llama%203%20%7C%20Nomic-black.svg)](https://ollama.ai/)
+[![Ollama](https://img.shields.io/badge/Ollama-Llama%203%20%7C%20Qwen%202.5%20%7C%20Nomic-black.svg)](https://ollama.ai/)
 [![LLM-Judge](https://img.shields.io/badge/Judge-LM%20Studio-purple.svg)](https://lmstudio.ai/)
 
 **InjectSecRAG** is an empirical research framework and ablation study investigating data poisoning and adversarial knowledge injection in Retrieval-Augmented Generation (RAG) pipelines. 
@@ -84,20 +85,32 @@ InjectSecRAG/
 
 ### 1. Requirements
 
-- Python 3.10+
-- [Ollama](https://ollama.com/) (for attack generation & RAG pipeline)
+- Python 3.10+ (managed via [`uv`](https://github.com/astral-sh/uv))
+- [Ollama](https://ollama.com/) (for vector embeddings & attack generation)
   ```bash
+  # Pull embedding model
   ollama pull nomic-embed-text
+
+  # Pull generation model (default: llama3:8b)
   ollama pull llama3:8b
   ```
+  > [!TIP]
+  > **Flexible Model Choice**: You can easily swap `llama3:8b` for any other Ollama-supported model, such as **Qwen 2.5** (`ollama pull qwen2.5:7b` or `ollama pull qwen2.5:14b`), Mistral, or Gemma. Simply update the model name parameter in the notebook.
 - [LM Studio](https://lmstudio.ai/) or an OpenAI-compatible local server (for `eval_attack.py` LLM judge)
   - Default judge model: `google/gemma-4-26b-a4b-qat` (or your preferred local evaluator)
   - Endpoint: `http://localhost:1234/v1/chat/completions`
 
-### 2. Python Dependencies
+### 2. Environment & Dependencies (via `uv`)
+
+This project uses [`uv`](https://github.com/astral-sh/uv) for fast, reliable Python package and environment management:
 
 ```bash
-pip install langchain langchain-chroma langchain-ollama chromadb scikit-learn pandas tqdm
+# Create and activate virtual environment with uv
+uv venv
+source .venv/bin/activate
+
+# Install dependencies using uv
+uv pip install langchain langchain-chroma langchain-ollama chromadb scikit-learn pandas tqdm
 ```
 
 ---
@@ -139,11 +152,12 @@ Open and execute [rag-attack-ablation-study.ipynb](file:///Users/sam/Documents/p
 
 ## ⚖️ LLM-as-a-Judge Evaluation (`eval_attack.py`)
 
-Run automated security evaluation of the attack results using a local LLM judge hosted on LM Studio:
+Run automated security evaluation of the attack results using `uv`:
 
 ```bash
-python3 eval_attack.py "final_results_ablation_25pct.csv" "judged_results.csv"
+uv run eval_attack.py "final_results_ablation_25pct.csv" "judged_results.csv"
 ```
+*(Alternatively: `python3 eval_attack.py "final_results_ablation_25pct.csv" "judged_results.csv"`)*
 
 ### Features:
 - **Concurrent Judging**: Uses `ThreadPoolExecutor` (default 4 workers) matching LM Studio's max concurrent slots.

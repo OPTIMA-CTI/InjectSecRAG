@@ -1,6 +1,6 @@
 """LLM-as-judge eval of a RAG knowledge-poisoning attack via LM Studio.
 
-Usage: python3 eval_attack.py ["final_results_ablation_25pct 1.csv"] [out.csv]
+Usage: uv run eval_attack.py ["final_results_ablation_25pct 1.csv"] [out.csv]
 """
 import csv, json, os, re, sys, time, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
