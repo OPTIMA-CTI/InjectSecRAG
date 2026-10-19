@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Vector database & large data artifacts
+chroma_db/
+chroma_db.zip
+*.sqlite3
+*.csv
+!questions.csv.example
+
+# OS metadata
+.DS_Store
+Thumbs.db
